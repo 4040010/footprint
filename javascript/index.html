@@ -82,104 +82,7 @@ body{padding-top:20px}.footer{padding-top:40px;padding-bottom:40px;margin-top:40
     &lt;script src="http://echarts.baidu.com/build/dist/echarts-all.js"&gt;&lt;/script&gt;
     &lt;script type="text/javascript"&gt;
         var myChart = echarts.init(document.getElementById('main'));
-        var option = {
-            backgroundColor: '#1b1b1b',
-            color: ['gold', 'aqua', 'lime'],
-            title: {
-                text: '<%=obj.title%>',
-                subtext: '<%=obj.subtitle%>',
-                x: 'center',
-                textStyle: {
-                    color: '#fff'
-                }
-            },
-            tooltip: {
-                trigger: 'item',
-                formatter: '{b}'
-            },
-            dataRange: {
-                show:false,
-                min : 0,
-                max : 100,
-                calculable : true,
-                color: ['#ff3333', 'orange', 'yellow','lime','aqua'],
-                textStyle:{
-                    color:'#fff'
-                }
-            },
-            series: [{
-                name: '全国',
-                type: 'map',
-                roam: true,
-                hoverable: false,
-                mapType: 'china',
-                itemStyle: {
-                    normal: {
-                        borderColor: 'rgba(100,149,237,1)',
-                        borderWidth: 0.5,
-                        areaStyle: {
-                            color: '#1b1b1b'
-                        }
-                    }
-                },
-                data: [],
-
-                geoCoord: <%=obj.alldata%>
-            }, {
-                name: '足迹',
-                type: 'map',
-                mapType: 'china',
-                data: [],
-                markLine: {
-                    smooth: true,
-                    effect: {
-                        show: true,
-                        scaleSize: 1,
-                        period: 30,
-                        color: '#fff',
-                        shadowBlur: 10
-                    },
-                    itemStyle: {
-                        normal: {
-                            borderWidth: 1,
-                            lineStyle: {
-                                type: 'solid',
-                                shadowBlur: 10
-                            },
-                            label:{
-                                show:false
-                            },
-
-                        }
-                    },
-
-                    data: <%=obj.linedata%>
-                },
-                markPoint: {
-                    symbol: 'emptyCircle',
-                    symbolSize: function(v) {
-                        return 10 + v / 10
-                    },
-                    effect: {
-                        show: true,
-                        shadowBlur: 0
-                    },
-                    itemStyle: {
-                        normal: {
-                            label: {
-                                show: false
-                            }
-                        },
-                        emphasis: {
-                            label: {
-                                position: 'top'
-                            }
-                        }
-                    },
-                    data: <%=obj.pointdata%>
-                }
-            }]
-        };
+        var option = <%=obj.option%>;
         myChart.setOption(option);
     &lt;/script&gt;
 &lt;/body&gt;
@@ -358,15 +261,11 @@ $.extend(FootPrint.prototype,{
 		that.option.series[1].markLine.data = that.linedata
 		that.option.series[1].markPoint.data = that.pointdata
 		that.chart.setOption(that.option,true);
-
+		console.log(JSON.stringify(that.option))
 		var obj = {
 			title:that.title,
-			subtitle:that.subtitle,
-			alldata:JSON.stringify(that.alldata),
-			linedata:JSON.stringify(that.linedata),
-			pointdata:JSON.stringify(that.pointdata)
+			option:JSON.stringify(that.option)
 		}
-		console.log(obj)
 		pageCode = _.template(that.tmpl)(obj)
 		$('#codeModal').modal('show').find('.modal-body').html(pageCode)
 	},
