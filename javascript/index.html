@@ -4,37 +4,405 @@
 	<meta charset="UTF-8">
 	<title>足迹生成器</title>
 	<link href="//cdn.bootcss.com/bootstrap/3.3.6/css/bootstrap.min.css" rel="stylesheet">
+	<style>
+body{padding-top:20px}.footer{padding-top:40px;padding-bottom:40px;margin-top:40px;border-top:1px solid #eee}.jumbotron{text-align:center;background-color:transparent}.jumbotron .btn{padding:14px 24px;font-size:21px}.nav-justified{background-color:#eee;border:1px solid #ccc;border-radius:5px}.nav-justified>li>a{padding-top:15px;padding-bottom:15px;margin-bottom:0;font-weight:700;color:#777;text-align:center;background-color:#e5e5e5;background-image:-webkit-gradient(linear,left top,left bottom,from(#f5f5f5),to(#e5e5e5));background-image:-webkit-linear-gradient(top,#f5f5f5 0%,#e5e5e5 100%);background-image:linear-gradient(to bottom,#f5f5f5 0%,#e5e5e5 100%);filter:progid:DXImageTransform.Microsoft.gradient(startColorstr='#f5f5f5',endColorstr='#e5e5e5',GradientType=0);background-repeat:repeat-x;border-bottom:1px solid #d5d5d5}.nav-justified>.active>a,.nav-justified>.active>a:focus,.nav-justified>.active>a:hover{background-color:#ddd;background-image:none;box-shadow:inset 0 3px 7px rgba(0,0,0,.15)}.nav-justified>li:first-child>a{border-radius:5px 5px 0 0}.nav-justified>li:last-child>a{border-bottom:0;border-radius:0 0 5px 5px}@media (min-width:768px){.nav-justified{max-height:52px}.nav-justified>li>a{border-right:1px solid #d5d5d5;border-left:1px solid #fff}.nav-justified>li:first-child>a{border-left:0;border-radius:5px 0 0 5px}.nav-justified>li:last-child>a{border-right:0;border-radius:0 5px 5px 0}}@media screen and (min-width:768px){.footer,.marketing,.masthead{padding-right:0;padding-left:0}}
+	.form-horizontal input{
+		margin-top: 10px;
+		margin-bottom: 10px;
+	}
+
+	</style>
 </head>
 <body>
 
+<div class="container">
+      <div class="masthead">
+        <h3 class="text-muted">足迹生成器</h3>
+        <nav>
+          <ul class="nav nav-justified">
+            <li><a href="http://51reboot.com">Reboot</a></li>
+            <li><a href="https://github.com/shengxinjing/my_blog/issues">我的博客</a></li>
+            <li><a href="http://shengxinjing.cn/woniu-cmdb">woniu-cmdb</a></li>
+            <li><a href="http://www.weibo.com/woniuppp/">我的微博</a></li>
+          </ul>
+        </nav>
+      </div>
+
+      <div class="row" style='margin-top:20px'>
+      	<div class="col-md-6">
+      		<p class="alert alert-success">每次行程内部，两个目的地以空格间隔</p>
+			<form class="form-horizontal">
 
 
+				<input id='title-input' type="text" class='form-control' placeholder='请输入标题'>
+				<input id='sub-input' type="text" class='form-control' placeholder='请输入副标题'>
+
+				<button type='button' id='add-btn' class="btn btn-success">
+					添加行程
+				</button>
+				<button  type='button' id="fresh-btn" class='btn btn-success pull-right'>查看效果</button>
+				<input type="text" class='form-control router' value='北京 昆明 北京'>
+				<input type="text" class='form-control router' value='北京 敦煌 呼和浩特 北京'>
+				<button  id='output-btn' type="button" class="btn btn-success btn-lg btn-block">导出代码</button>
+
+
+			</form>
+
+      	</div>
+      	<div class="col-md-6" id='main' style="height:600px;"></div>
+      </div>
+</div>
+<div class="modal fade" id="codeModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+  <div class="modal-dialog modal-lg" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+        <h4 class="modal-title" id="myModalLabel">Modal title</h4>
+      </div>
+      <div class="modal-body">
+        
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-default" data-dismiss="modal">关闭</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+<script id='t1' type='text/template'>
+&lt;!DOCTYPE html&gt;
+&lt;head&gt;
+    &lt;meta charset="utf-8"&gt;
+    &lt;title&gt;<%=obj.title%>&lt;/title&gt;
+&lt;/head&gt;
+&lt;body&gt;
+
+    &lt;div id="main" style="height:600px;width:900px;margin:20px auto;"&gt;&lt;/div&gt;
+    &lt;script src="http://echarts.baidu.com/build/dist/echarts-all.js"&gt;&lt;/script&gt;
+    &lt;script type="text/javascript"&gt;
+        var myChart = echarts.init(document.getElementById('main'));
+        var option = {
+            backgroundColor: '#1b1b1b',
+            color: ['gold', 'aqua', 'lime'],
+            title: {
+                text: '<%=obj.title%>',
+                subtext: '<%=obj.subtitle%>',
+                x: 'center',
+                textStyle: {
+                    color: '#fff'
+                }
+            },
+            tooltip: {
+                trigger: 'item',
+                formatter: '{b}'
+            },
+            dataRange: {
+                show:false,
+                min : 0,
+                max : 100,
+                calculable : true,
+                color: ['#ff3333', 'orange', 'yellow','lime','aqua'],
+                textStyle:{
+                    color:'#fff'
+                }
+            },
+            series: [{
+                name: '全国',
+                type: 'map',
+                roam: true,
+                hoverable: false,
+                mapType: 'china',
+                itemStyle: {
+                    normal: {
+                        borderColor: 'rgba(100,149,237,1)',
+                        borderWidth: 0.5,
+                        areaStyle: {
+                            color: '#1b1b1b'
+                        }
+                    }
+                },
+                data: [],
+
+                geoCoord: <%=obj.alldata%>
+            }, {
+                name: '足迹',
+                type: 'map',
+                mapType: 'china',
+                data: [],
+                markLine: {
+                    smooth: true,
+                    effect: {
+                        show: true,
+                        scaleSize: 1,
+                        period: 30,
+                        color: '#fff',
+                        shadowBlur: 10
+                    },
+                    itemStyle: {
+                        normal: {
+                            borderWidth: 1,
+                            lineStyle: {
+                                type: 'solid',
+                                shadowBlur: 10
+                            },
+                            label:{
+                                show:false
+                            },
+
+                        }
+                    },
+
+                    data: <%=obj.linedata%>
+                },
+                markPoint: {
+                    symbol: 'emptyCircle',
+                    symbolSize: function(v) {
+                        return 10 + v / 10
+                    },
+                    effect: {
+                        show: true,
+                        shadowBlur: 0
+                    },
+                    itemStyle: {
+                        normal: {
+                            label: {
+                                show: false
+                            }
+                        },
+                        emphasis: {
+                            label: {
+                                position: 'top'
+                            }
+                        }
+                    },
+                    data: <%=obj.pointdata%>
+                }
+            }]
+        };
+        myChart.setOption(option);
+    &lt;/script&gt;
+&lt;/body&gt;
+&lt;/html&gt;	
+</script>
 	
 <script src='http://apps.bdimg.com/libs/jquery/2.1.4/jquery.min.js'></script>
 <script src="//cdn.bootcss.com/bootstrap/3.3.6/js/bootstrap.min.js"></script>
+<script src="//cdn.bootcss.com/underscore.js/1.8.3/underscore-min.js"></script>
+<script src="http://echarts.baidu.com/build/dist/echarts-all.js"></script>
 <script>
+
+function FootPrint(opt){
+	this.key = 'clR7lmWlaguV9WUYKM7OGMbj'
+	this.url = 'http://api.map.baidu.com/geocoder/v2/?output=json&ak='+this.key+'&address='
+	this.addbtn = $('#add-btn')
+	this.freshbtn = $('#fresh-btn')
+	this.outbtn = $('#output-btn')
+	this.chart = echarts.init(document.getElementById('main'))
+	this.tmpl = $('#t1').html()
+	this.foot = []
+	// all data
+	this.cache = {}
+	this.alldata = {}
+	this.linedata = []
+	this.pointdata = []
+
+	this.option = {
+            backgroundColor: '#1b1b1b',
+            color: ['gold', 'aqua', 'lime'],
+            title: {
+                text: '',
+                subtext: '',
+                x: 'center',
+                textStyle: {
+                    color: '#fff'
+                }
+            },
+            tooltip: {
+                trigger: 'item',
+                formatter: '{b}'
+            },
+            dataRange: {
+                show:false,
+                min : 0,
+                max : 100,
+                calculable : true,
+                color: ['#ff3333', 'orange', 'yellow','lime','aqua'],
+                textStyle:{
+                    color:'#fff'
+                }
+            },
+            series: [{
+                name: '全国',
+                type: 'map',
+                roam: true,
+                hoverable: false,
+                mapType: 'china',
+                itemStyle: {
+                    normal: {
+                        borderColor: 'rgba(100,149,237,1)',
+                        borderWidth: 0.5,
+                        areaStyle: {
+                            color: '#1b1b1b'
+                        }
+                    }
+                },
+                data: [],
+
+                geoCoord: []
+            }, {
+                name: '足迹',
+                type: 'map',
+                mapType: 'china',
+                data: [],
+                markLine: {
+                    smooth: true,
+                    effect: {
+                        show: true,
+                        scaleSize: 1,
+                        period: 30,
+                        color: '#fff',
+                        shadowBlur: 10
+                    },
+                    itemStyle: {
+                        normal: {
+                            borderWidth: 1,
+                            lineStyle: {
+                                type: 'solid',
+                                shadowBlur: 10
+                            },
+                            label:{
+                                show:false
+                            },
+
+                        }
+                    },
+
+                    data: []
+                },
+                markPoint: {
+                    symbol: 'emptyCircle',
+                    symbolSize: function(v) {
+                        return 10 + v / 10
+                    },
+                    effect: {
+                        show: true,
+                        shadowBlur: 0
+                    },
+                    itemStyle: {
+                        normal: {
+                            label: {
+                                show: false
+                            }
+                        },
+                        emphasis: {
+                            label: {
+                                position: 'top'
+                            }
+                        }
+                    },
+                    data: []
+                }
+            }]
+        };
+}
+$.extend(FootPrint.prototype,{
+	bindEvent:function(){
+		var that = this
+		that.addbtn.on('click',function(){
+			that.outbtn.before('<input type="text" placeholder="请输入行程，多个地点之间用空格间隔" class="form-control router">')
+		})
+		$.ajaxSettings.async = false;
+		that.freshbtn.on('click',function(){
+			that.foot = []
+			// all data
+			that.cache = {}
+			that.alldata = {}
+			that.linedata = []
+			that.pointdata = []
+
+			that.getInputVal()
+			that.title = $('#title-input').val()||'狗哥和蘑菇'
+			that.subtitle= $('#sub-input').val()||'北京 昆明 西北'
+			var size = _.size(that.cache)
+			// console.log(that.foot)
+			var tmp = []
+			$.each(that.cache,function(key,val){
+
+				// that.cacheArr.push(key)
+				$.getJSON(that.url+key+'&callback=?',function(res){
+					if (res.result) {
+						var loc = res.result.location
+						that.alldata[key] = [loc.lng,loc.lat]
+						that.pointdata.push({'name':key})
+						if (_.size(that.alldata)==size) {
+							that.initPage()
+						};
+					};
+				})
+			})
+		}).trigger('click')
+	},
+	initPage:function(){
+		var that = this
+		$.each(that.foot,function(i,v){
+			tmp = v.split(' ')
+			for (var i = 0; i <tmp.length-1; i++) {
+				that.linedata.push([{'name':tmp[i]},{'name':tmp[i+1]}])
+			};
+		})
+		// console.log(that.option.series)
+		that.option.title.text = that.title
+		that.option.title.subtext = that.subtitle
+		that.option.series[0].geoCoord = that.alldata
+		that.option.series[1].markLine.data = that.linedata
+		that.option.series[1].markPoint.data = that.pointdata
+		that.chart.setOption(that.option,true);
+
+		var obj = {
+			title:that.title,
+			subtitle:that.subtitle,
+			alldata:JSON.stringify(that.alldata),
+			linedata:JSON.stringify(that.linedata),
+			pointdata:JSON.stringify(that.pointdata)
+		}
+		console.log(obj)
+		pageCode = _.template(that.tmpl)(obj)
+		$('#codeModal').modal('show').find('.modal-body').html(pageCode)
+	},
+	getInputVal:function(){
+		var that = this
+		that.foot = []
+		$('input.router').each(function(i,v){
+			var val = $(v).val()
+			if (val) {
+				$.each(val.split(' '),function(j,s){
+					that.cache[s] = true
+				})
+				that.foot.push(val)
+			};
+		})
+	},
+	init:function(){
+		this.bindEvent()
+	}
+
+})
+$(function(){
+	var foot = new FootPrint()
+	foot.init()
+})
 	$(function(){
 		function getPoint(name){
 			var key = 'clR7lmWlaguV9WUYKM7OGMbj'
 			var url = 'http://api.map.baidu.com/geocoder/v2/?output=json&ak='+key+'&address='+name
-			console.log(url)
+			// console.log(url)
 			$.getJSON(url+'&callback=?',function(data){
 				console.log(data)
 				if (data.result) {
 					
 				};
 			})
-			// $.ajax({
-			// 	url:url,
-			// 	type:'GET',
-			// 	jsonp:'callback',
-			// 	datatype:"jsonp",
-			// 	success:function(data){
-			// 		console.log(data)
-			// 	}
-			// })
-
-
 		}
 		getPoint('北京交通大学')
 	})

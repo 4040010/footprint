@@ -124,9 +124,9 @@ htmlStr = '''
 </html>
 
 '''.replace('\n','')
+# .replace('<','&lt;').replace('>','&gt;')
 
-poiCache = {}
-nameCache = []
+
 
 class FootPrint():
     def __init__(self,config):
