@@ -6,9 +6,7 @@ reload(sys)
 sys.setdefaultencoding("utf-8")
 import requests
 import json
-poiCache = {}
-nameCache = []
-
+import random
 htmlStr = '''
 
 <!DOCTYPE html>
@@ -37,12 +35,22 @@ htmlStr = '''
                 trigger: 'item',
                 formatter: '{b}'
             },
-
+            dataRange: {
+                show:false,
+                min : 0,
+                max : 100,
+                calculable : true,
+                color: ['#ff3333', 'orange', 'yellow','lime','aqua'],
+                textStyle:{
+                    color:'#fff'
+                }
+            },
             series: [{
                 name: '全国',
                 type: 'map',
+                roam: true,
                 hoverable: false,
-                mapType: 'china',
+                mapType: '%(region)s',
                 itemStyle: {
                     normal: {
                         borderColor: 'rgba(100,149,237,1)',
@@ -58,7 +66,7 @@ htmlStr = '''
             }, {
                 name: '足迹',
                 type: 'map',
-                mapType: 'china',
+                mapType: '%(region)s',
                 data: [],
                 markLine: {
                     smooth: true,
@@ -75,9 +83,14 @@ htmlStr = '''
                             lineStyle: {
                                 type: 'solid',
                                 shadowBlur: 10
-                            }
+                            },
+                            label:{
+                                show:false
+                            },
+
                         }
                     },
+
                     data: %(linedata)s
                 },
                 markPoint: {
@@ -108,47 +121,77 @@ htmlStr = '''
         myChart.setOption(option);
     </script>
 </body>
-
 </html>
 
-'''
+'''.replace('\n','')
 
-def getPoint(name):
-    key = 'q5mTrTGzCSVq5QmGpI9y18Bo'
-    url = 'http://api.map.baidu.com/geocoder/v2/?output=json&ak=%s&address=%s'%(key,name)
-    try:
-        r = requests.get(url)
-        res = r.json()
+poiCache = {}
+nameCache = []
 
-        if res.get('result',None):
-            loc = res['result']['location']
-            poiCache[name] = [loc['lng'],loc['lat']]
-    except:
-        print '获取不到%s的经纬度信息'%(name)
+class FootPrint():
+    def __init__(self,config):
+        self.key = 'q5mTrTGzCSVq5QmGpI9y18Bo'
+        self.url = 'http://api.map.baidu.com/geocoder/v2/?output=json&ak=%s&address=' % (self.key)
+        self.title = config.get('title','狗哥和蘑菇')
+        self.color = config.get('color',None)
+        self.subtitle = config.get('subtitle','北京 昆明 西北 呼和浩特')
+        self.data = config['foot']
+        self.region = config.get('region','china')
+        self.alldata = {}
+        self.linedata = []
+        self.pointdata = []
+        self.cache = {}
+    def processData(self):
+        for route in self.data:
+            tmp = route.split()
+            for t in tmp:
+                self.cache[t] = self.getValue()
+                if t not in self.alldata:
+                    self.getPoint(t)
 
-def gen(config):
-    title = config['title']
-    subtitle = config['subtitle']
-    footTmp = []
-    for foot in config['foot']:
-        tmp = foot.split()
-        for i in range(len(tmp)-1):
-            footTmp.append([{'name':tmp[i]},{"name":tmp[i+1]}])
-        for f in foot.split():
-            if f not in poiCache:
-                getPoint(f)
-    for name in poiCache:
-        nameCache.append({'name':name})
+            for i in range(len(tmp)-1):
+                val = self.getValue()
+                self.linedata.append([{'name':tmp[i]},{"name":tmp[i+1],'value':self.cache[tmp[i+1]]}])
+        for name in self.alldata:
+            self.pointdata.append({'name':name,'value':self.cache[name]})
 
-    obj = {
-        'title':title,
-        'subtitle':subtitle,
-        'alldata':json.dumps(poiCache),
-        'linedata':json.dumps(footTmp),
-        'pointdata':json.dumps(nameCache)
-    }
+    def getPoint(self,name):
+        url = self.url+name
+        try:
+            r = requests.get(url)
+            res = r.json()
+            if res.get('result',None):
+                loc = res['result']['location']
+                self.alldata[name] = [loc['lng'],loc['lat']]
+        except:
+            print '获取不到%s的经纬度信息'%(name)
+    def writeFile(self):
+        obj = {
+            'title':self.title,
+            'subtitle':self.subtitle,
+            'region':self.region,
+            'alldata':json.dumps(self.alldata),
+            'linedata':json.dumps(self.linedata),
+            'pointdata':json.dumps(self.pointdata)
+        }
 
-    with open('output.html','w') as f:
-        f.write(htmlStr % obj)       
+        with open('output.html','w') as f:
+            f.write(htmlStr % obj)
+    def getValue(self):
+        if self.color:
+            return random.randint(0,100)
+        else:
+            return 1
+    def start(self):
+        self.processData()
+        self.writeFile()      
+
 if __name__ =="__main__":
-    gen(config.config)
+    print random.random()*100
+    F = FootPrint(config.config)
+    F.start()
+
+
+
+
+
