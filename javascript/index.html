@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>足迹生成器</title>
+	<link href="//cdn.bootcss.com/bootstrap/3.3.6/css/bootstrap.min.css" rel="stylesheet">
+</head>
+<body>
+
+
+
+	
+<script src='http://apps.bdimg.com/libs/jquery/2.1.4/jquery.min.js'></script>
+<script src="//cdn.bootcss.com/bootstrap/3.3.6/js/bootstrap.min.js"></script>
+<script>
+	$(function(){
+		function getPoint(name){
+			var key = 'clR7lmWlaguV9WUYKM7OGMbj'
+			var url = 'http://api.map.baidu.com/geocoder/v2/?output=json&ak='+key+'&address='+name
+			console.log(url)
+			$.getJSON(url+'&callback=?',function(data){
+				console.log(data)
+				if (data.result) {
+					
+				};
+			})
+			// $.ajax({
+			// 	url:url,
+			// 	type:'GET',
+			// 	jsonp:'callback',
+			// 	datatype:"jsonp",
+			// 	success:function(data){
+			// 		console.log(data)
+			// 	}
+			// })
+
+
+		}
+		getPoint('北京交通大学')
+	})
+</script>
+
+</body>
+</html>
