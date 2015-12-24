@@ -24,7 +24,7 @@
 
 ### 网页版
 
-1. [戳地址](http://mushdog.sinaapp.com/footprint.html)
+1. [戳地址](http://mushdog.sinaapp.com/footprint.html) 基于echarts实现
 2. 左边输入标题，副标题
 3. 下面的输入框输入行程，每个输入框是一个行程，地点之间用空格间隔，可以点击添加行程按钮新增输入框
 4. 点击右侧的查看效果，右侧的图就会变成你配置的效果
