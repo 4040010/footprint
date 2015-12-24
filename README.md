@@ -29,7 +29,8 @@
 6. 去[蘑菇的微博](http://www.weibo.com/u/2814551062)评论一句圣诞快乐
 7. 谢谢大家
 
-
+![](http://7xjoq9.com1.z0.glb.clouddn.com/footprint01.png)
+![](http://7xjoq9.com1.z0.glb.clouddn.com/footprint02.gif)
 
 ### python版本
 
@@ -55,6 +56,8 @@ config={
 * 执行 python build.py ,会生成一个footprint.html，大功告成，浏览器打开看效果吧
 * 去[蘑菇的微博](http://www.weibo.com/u/2814551062)评论一句圣诞快乐
 * 谢谢大家
+![](http://7xjoq9.com1.z0.glb.clouddn.com/footprint03.gif)
+
 
 ### 彩色版本和定制区域
 
@@ -75,6 +78,9 @@ config={
 }
 ```
 
+![](http://7xjoq9.com1.z0.glb.clouddn.com/footprint04.gif)
+
+
 * 如果你只在北京内部玩，或者定制一个北京旅游计划，可以加一个region字段，如下
 
 ```
@@ -84,7 +90,7 @@ config={
 	'color':True,
 	'region':'北京',
 	'foot':[
-		‘北京交通大学 霍营地铁站 古北水镇’,
+		'北京交通大学 霍营地铁站 古北水镇',
 		'北京交通大学 八达岭 北京交通大学',
 		'北京交通大学 妙峰山 潭柘寺'
 		
@@ -92,6 +98,10 @@ config={
 }
 ```
 
+
 最后，麻烦大家去[蘑菇的微博](http://www.weibo.com/u/2814551062)评论一句圣诞快乐
+
+![](http://7xjoq9.com1.z0.glb.clouddn.com/footprint05.gif)
+
 
 
