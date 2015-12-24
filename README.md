@@ -4,6 +4,8 @@
 
 #### 如果觉得对你有帮助，麻烦去[她的微博](http://www.weibo.com/u/2814551062)评论一句圣诞快乐，顺便github求个star
 
+### [使用视频教程](http://v.youku.com/v_show/id_XMTQyMjQ4MjUzMg==.html)
+
 
 ```
 开发时间很短，如有bug 请轻喷，有需求提issue，我会维护这个项目
@@ -108,6 +110,11 @@ config={
 ![](http://7xjoq9.com1.z0.glb.clouddn.com/footprint05.gif)
 
 
+
+<p>运维开发交流QQ群： 238757010</p>
+欢迎大家关注公共号,高品质运维开发
+
+![](http://7xjoq9.com1.z0.glb.clouddn.com/erweima.jpg)
 如果您觉得有我写的东西对你帮助，可以打赏点钱给我支付宝支付宝316783812@qq.com或者扫二维码（10元以下），凑钱买圣诞礼物 ~~~
 
 ![](http://7xjoq9.com1.z0.glb.clouddn.com/zhifubao.png)
