@@ -175,7 +175,7 @@ class FootPrint():
             'pointdata':json.dumps(self.pointdata)
         }
 
-        with open('output.html','w') as f:
+        with open('footprint.html','w') as f:
             f.write(htmlStr % obj)
     def getValue(self):
         if self.color:
