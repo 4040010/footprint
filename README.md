@@ -29,7 +29,9 @@
 6. 去[蘑菇的微博](http://www.weibo.com/u/2814551062)评论一句圣诞快乐
 7. 谢谢大家
 
+
 ![](http://7xjoq9.com1.z0.glb.clouddn.com/footprint01.png)
+不动戳大
 ![](http://7xjoq9.com1.z0.glb.clouddn.com/footprint02.gif)
 
 ### python版本
