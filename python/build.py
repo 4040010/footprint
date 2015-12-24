@@ -177,6 +177,7 @@ class FootPrint():
 
         with open('footprint.html','w') as f:
             f.write(htmlStr % obj)
+        print '成功生成文件，打开看看吧！'
     def getValue(self):
         if self.color:
             return random.randint(0,100)
@@ -187,7 +188,6 @@ class FootPrint():
         self.writeFile()      
 
 if __name__ =="__main__":
-    print random.random()*100
     F = FootPrint(config.config)
     F.start()
 
