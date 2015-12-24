@@ -6,6 +6,7 @@
 
 
 ```
+开发时间很短，如有bug 请轻喷，有需求提issue，我会维护这个项目
 ├── README.md 说明文档
 ├── javascript 网页版本
 │   └── index.html
@@ -27,7 +28,7 @@
 4. 点击右侧的查看效果，右侧的图就会变成你配置的效果
 5. 新建一个html文件，点击导出代码，把弹出来的一坨代码粘进去，bingo
 6. 去[蘑菇的微博](http://www.weibo.com/u/2814551062)评论一句圣诞快乐
-7. 谢谢大家
+7. 谢谢大家,开发时间很短，如有bug 请轻喷
 
 
 ![](http://7xjoq9.com1.z0.glb.clouddn.com/footprint01.png)
@@ -57,7 +58,8 @@ config={
 * foot是一个数组，每个元素是一个行程，目的地(景点)之间用空格分开
 * 执行 python build.py ,会生成一个footprint.html，大功告成，浏览器打开看效果吧
 * 去[蘑菇的微博](http://www.weibo.com/u/2814551062)评论一句圣诞快乐
-* 谢谢大家
+* 谢谢大家,开发时间很短，如有bug 请轻喷
+
 ![](http://7xjoq9.com1.z0.glb.clouddn.com/footprint03.gif)
 
 
