@@ -4,7 +4,7 @@
 
 #### 如果觉得对你有帮助，麻烦去[她的微博](http://www.weibo.com/u/2814551062)评论一句圣诞快乐，顺便github求个star
 
-### [使用视频教程](http://v.youku.com/v_show/id_XMTQyMjQ4MjUzMg==.html)
+### [视频教程](http://v.youku.com/v_show/id_XMTQyMjQ4MjUzMg==.html)
 
 
 ```
