@@ -38,7 +38,7 @@
 ### python版本
 
 * 下载本项目，进入到python目录下，有两个文件，config是你需要修改的2. 
-
+* 项目依赖于requests模块 需要pip安装
 
 ```
 config={
