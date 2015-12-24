@@ -2,7 +2,7 @@
 
 #### 程序员的浪漫，我女朋友蘑菇喜欢旅游，于是我做了这个，记录2015一起去过的地方，祝她圣诞快乐
 
-#### 如果觉得对你有帮助，麻烦去[她的微博](http://www.weibo.com/u/2814551062)评论一句圣诞快乐，顺便github求个star
+#### 如果觉得对你有帮助，麻烦去ithub求个star
 
 ### [视频教程](http://v.youku.com/v_show/id_XMTQyMjQ4MjUzMg==.html)
 
@@ -29,8 +29,7 @@
 3. 下面的输入框输入行程，每个输入框是一个行程，地点之间用空格间隔，可以点击添加行程按钮新增输入框
 4. 点击右侧的查看效果，右侧的图就会变成你配置的效果
 5. 新建一个html文件，点击导出代码，把弹出来的一坨代码粘进去，bingo
-6. 去[蘑菇的微博](http://www.weibo.com/u/2814551062)评论一句圣诞快乐
-7. 谢谢大家,开发时间很短，如有bug 请轻喷
+6. 谢谢大家,开发时间很短，如有bug 请轻喷
 
 
 ![](http://7xjoq9.com1.z0.glb.clouddn.com/footprint01.png)
@@ -59,7 +58,6 @@ config={
 * 修改上面这个配置里的title(标题),subtitle(副标题)和foot(行程)
 * foot是一个数组，每个元素是一个行程，目的地(景点)之间用空格分开
 * 执行 python build.py ,会生成一个footprint.html，大功告成，浏览器打开看效果吧
-* 去[蘑菇的微博](http://www.weibo.com/u/2814551062)评论一句圣诞快乐
 * 谢谢大家,开发时间很短，如有bug 请轻喷
 
 ![](http://7xjoq9.com1.z0.glb.clouddn.com/footprint03.gif)
@@ -105,7 +103,6 @@ config={
 ```
 
 
-最后，麻烦大家去[蘑菇的微博](http://www.weibo.com/u/2814551062)评论一句圣诞快乐
 
 ![](http://7xjoq9.com1.z0.glb.clouddn.com/footprint05.gif)
 
