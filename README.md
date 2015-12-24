@@ -4,7 +4,7 @@
 
 #### 如果觉得对你有帮助，麻烦去ithub求个star
 
-### [视频教程](http://v.youku.com/v_show/id_XMTQyMjQ4MjUzMg==.html)
+### [视频教程](http://www.weibo.com/2503738775/D9TrKaLZv)
 
 
 ```
