@@ -65,7 +65,7 @@ config={
 config={
 	'title':'去过的地方',
 	'subtitle':'北京 昆明 西北 呼和浩特',
-	'color':true,
+	'color':True,
 	'foot':[
 		'北京 昆明 丽江 香格里拉 丽江 昆明 北京',
 		'霍营地铁站 布达拉宫',
