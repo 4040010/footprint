@@ -130,7 +130,7 @@ htmlStr = '''
 
 class FootPrint():
     def __init__(self,config):
-        self.key = 'q5mTrTGzCSVq5QmGpI9y18Bo'
+        self.key = 'QspXzwz6rO3IviR33HDf8Czv05pR7XoT'
         self.url = 'http://api.map.baidu.com/geocoder/v2/?output=json&ak=%s&address=' % (self.key)
         self.title = config.get('title','狗哥和蘑菇')
         self.color = config.get('color',None)
